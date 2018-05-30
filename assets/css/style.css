@@ -1,0 +1,13 @@
+* {
+    box-sizing: border-box;
+    text-align: center;
+    background-color: coral;
+  }
+  
+  .clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+    overflow: auto;
+  }
+

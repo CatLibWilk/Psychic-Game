@@ -1,7 +1,7 @@
 * {
     box-sizing: border-box;
     text-align: center;
-    background-color: coral;
+    /* background-color: coral; */
   }
   
   .clearfix::after {
@@ -11,3 +11,37 @@
     overflow: auto;
   }
 
+  #image-area{
+      
+        /* background-color: goldenrod; */
+  }
+  #play-area{
+      
+        /* background-color: goldenrod; */
+  }
+
+  #logo{
+      height: 100%;
+      width: 100%;
+  }
+
+ #content-area{
+      background-image: url('../images/background.jpg');
+      height: 1500px;
+      padding-top: 10%;
+  }
+
+  #main-game-area{
+      height: 750px;
+  }
+
+
+  header{
+      border-bottom-style: solid;
+      border-width: 5px;
+      border-color: gold;
+  }
+
+  .zone{
+      height: 100%;
+  }

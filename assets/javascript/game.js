@@ -1,11 +1,13 @@
-var guessBank = ["apples", "oranges", "pie"];
+var guessBank = ["lemon", "caper", "daemon"];
 var randWord = "";
+var currentWord = "";
 var counterDisp= $("#wins-counter");
 var currentWordDisp= $("#current-word");
 var guessCountDisp= $("#guesses-remaining");
 var guessedDisp= $("#letters-guessed");
 var gameBegun = false;
 var generatorActive = true;
+var wordGenerated = false;
 
 // counterDisp.text("test");
 // currentWordDisp.text("test");
@@ -13,112 +15,112 @@ var generatorActive = true;
 // guessedDisp.text("test");
 
 $("body").on("keydown", function(e){
-    console.log(gameBegun);
+
     var keyCode = e.which;
     var key = "";
         if (keyCode === 65){
             key = "a";
-            console.log(key);
+            (key);
             }else if
                 (keyCode === 66){
                     key = "b";
-                console.log(key);
+                (key);
             }else if
                 (keyCode === 67){
                     key = "c";
-            console.log(key);
+            (key);
             }else if
             (keyCode === 68){
                 key = "d";
-                console.log(key);
+                (key);
             }else if
             (keyCode === 69){
                 key = "e";
-                console.log(key);
+                (key);
             }else if
             (keyCode === 70){
                 key = "f";
-                console.log(key);
+                (key);
             }else if
             (keyCode === 71){
                 key = "g";
-                console.log(key);
+                (key);
             }else if
             (keyCode === 72){
                 key = "h";
-                console.log(key);
+                (key);
             }else if
             (keyCode === 73){
                 key = "i";
-                console.log(key);
+                (key);
             }else if
             (keyCode === 74){
                 key = "j";
-                console.log(key);
+                (key);
             }else if
             (keyCode === 75){
                 key = "k";
-                console.log(key);
+                (key);
             }else if
             (keyCode === 76){
                 key = "l";
-                console.log(key);
+                (key);
             }else if
             (keyCode === 77){
                 key = "m";
-                console.log(key);
+                (key);
             }else if
             (keyCode === 78){
                 key = "n";
-                console.log(key);
+                (key);
             }else if
             (keyCode === 79){
                 key = "o";
-                console.log(key);
+                (key);
             }else if
             (keyCode === 80){
                 key = "p";
-                console.log(key);
+                (key);
             }else if
             (keyCode === 81){
                 key = "q";
-                console.log(key);
+                (key);
             }else if
             (keyCode === 82){
                 key = "r";
-                console.log(key);
+                (key);
             }else if
             (keyCode === 83){
                 key = "s";
-                console.log(key);
+                (key);
             }else if
             (keyCode === 84){
                 key = "t";
-                console.log(key);
+                (key);
             }else if
             (keyCode === 85){
                 key = "u";
-                console.log(key);
+                (key);
             }else if
             (keyCode === 86){
                 key = "v";
-                console.log(key);
+                (key);
             }else if
             (keyCode === 87){
                 key = "w";
-                console.log(key);
+                (key);
             }else if
             (keyCode === 88){
                 key = "x";
-                console.log(key);
+                (key);
             }else if
             (keyCode === 89){
                 key = "y";
-                console.log(key);
+                (key);
             }else if
             (keyCode === 90){
                 key = "z";
-                console.log(key);
+                (key);
             }
             else{
                 console.log("choose a letter please.");
@@ -126,22 +128,36 @@ $("body").on("keydown", function(e){
             if(gameBegun === true){
             guessedDisp.append(key);
             }
+            if(gameBegun === true){
+                if(currentWord.indexOf(key) !== -1){
+                    var correctLetter = currentWord.indexOf(key);
+
+                }else{
+                    alert("guess again");
+                }
+            
+             }
             gameBegun = true;
             if(gameBegun === true && generatorActive === true){
                 var randWord = guessBank[Math.floor(Math.random()*guessBank.length)];
-                alert(randWord);
+                currentWord = randWord;//sets randomly selected word to be value of empty 'currentWord' var. So if an inputed key is not "-1"
+                                        //in a check fof currentWord.indexOf(key)...
                 function generateLetterspace (){
                     for(var i=0; i<randWord.length; i++){
                         var letterSpace = $("<div>");
-                        letterSpace.attr("class", "border-bottom border-dark ml-1 mr-1 float-left letterbox");
+                        letterSpace.attr("position", i);
+                        letterSpace.attr("class", "border-bottom border-dark ml-1 mr-1 float-left letterbox text-light");
+                        // letterSpace.text(randWord[i]);
                         currentWordDisp.append(letterSpace);
                     }
                 }
+
                 generateLetterspace();
                 generatorActive = false;
-
+                
             }
         }
-    
 );
+
+
 

@@ -1,4 +1,4 @@
-var guessBank = ["lemon", "caper", "daemon"];
+var guessBank = ["quart", "lemon", "greco"];
 var randWord = "";
 var currentWord = "";
 var counterDisp= $("#wins-counter");
@@ -131,6 +131,10 @@ $("body").on("keydown", function(e){
             if(gameBegun === true){
                 if(currentWord.indexOf(key) !== -1){
                     var correctLetter = currentWord.indexOf(key);
+                    var position =  "#" + correctLetter; 
+                    var changedLetter = $(position).attr("class", "border-bottom border-dark ml-1 mr-1 float-left letterbox text-dark");
+                    // console.log(key);
+                    console.log(changedLetter);
 
                 }else{
                     alert("guess again");
@@ -145,8 +149,10 @@ $("body").on("keydown", function(e){
                 function generateLetterspace (){
                     for(var i=0; i<randWord.length; i++){
                         var letterSpace = $("<div>");
-                        letterSpace.attr("position", i);
+                        // letterSpace.attr("position", i); --original method of identifying created divs
                         letterSpace.attr("class", "border-bottom border-dark ml-1 mr-1 float-left letterbox text-light");
+                        letterSpace.attr("id", i);
+                        letterSpace.append(randWord[i]);
                         // letterSpace.text(randWord[i]);
                         currentWordDisp.append(letterSpace);
                     }

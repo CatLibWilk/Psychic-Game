@@ -1,3 +1,5 @@
+$(function(){
+
 var winsCounter= $("#wins-counter");
 var currentWordDisp= $("#current-word");
 var guessesRemaining= $("#guesses-remaining");
@@ -201,12 +203,9 @@ $("body").on("keydown", function(e){
         answerSpace.attr("class", "visible");
         siegCount++;
         winsCounter.text(siegCount);
+        gameOn = false;
     }
 }
 );
 
-
-////need to have two arrays, one storing the answer as array to check letters against and that never changes, another
-///removes letters as they've been guessed.  For each letter, we need to look in the constant array to see where the first instance of the letter is. 
-///this needs to be related to the position id in the created divs, which will be the same as it's index position in the constant array.  We also need to remove
-///this found instance from the checker array, which will enclose the if statement with a -1 statement to ensure that the letter is still in teh....im stupid
+});

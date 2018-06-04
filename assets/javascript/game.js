@@ -163,11 +163,11 @@ $("body").on("keydown", function(e){
                 (key);
             }
             else{
-                console.log("choose a letter please.");
+                alert("choose a letter please.");
             }
 
             if(gameOn === true){
-                console.log(randWord);
+                // console.log(randWord);---used for debugging, delete before final push
                 
                     if(lettersArray.indexOf(key) !== -1){
                     for (var j=0; j<lettersArray.length; j++){
@@ -175,9 +175,9 @@ $("body").on("keydown", function(e){
                             var position = "#" + j;
                             var changedLetter = $(position).text(key);
                             guessedArray[j] = key;
-                            console.log(guessedArray);
+                            // console.log(guessedArray);---used for debugging, delete before final push
                             dblChecker[j]="@";
-                            console.log(dblChecker);
+                            // console.log(dblChecker);---used for debugging, delete before final push
                             break;
                         }
                     }

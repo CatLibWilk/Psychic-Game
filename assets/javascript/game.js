@@ -4,12 +4,13 @@ var guessesRemaining= $("#guesses-remaining");
 var lettersGuessed= $("#letters-guessed");
 var answerSpace = $("#answer-space");
 
-var guessBank = ["grape", "corn", "pitch", "fast"];
+var guessBank = ["seabreeze", "pallmall", "slims", "marlborough"];
 var randWord = "";
 var currentWord = "";
 var lettersArray = [];
 var guessedArray = [];
-var guessesLeft = 9;
+var dblChecker = [];
+var guessesLeft = 14;
 var siegCount = 0;
 
 
@@ -26,6 +27,7 @@ $("body").on("keypress", function setup(){
         currentWord = randWord;//sets randomly selected word to be value of empty 'currentWord' var. So if an inputed key is not "-1"
                                 //in a check fof currentWord.indexOf(key)...
         lettersArray = randWord.split('');
+        dblChecker = randWord.split('');
 
         
         function generateLetterspace (){
@@ -169,11 +171,13 @@ $("body").on("keydown", function(e){
                 
                     if(lettersArray.indexOf(key) !== -1){
                     for (var j=0; j<lettersArray.length; j++){
-                        if(key === lettersArray[j]){
+                        if(key === dblChecker[j]){
                             var position = "#" + j;
                             var changedLetter = $(position).text(key);
                             guessedArray[j] = key;
                             console.log(guessedArray);
+                            dblChecker[j]="@";
+                            console.log(dblChecker);
                             break;
                         }
                     }

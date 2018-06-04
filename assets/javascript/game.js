@@ -1,21 +1,59 @@
-var guessBank = ["quart", "lemon", "greco"];
+var winsCounter= $("#wins-counter");
+var currentWordDisp= $("#current-word");
+var guessesRemaining= $("#guesses-remaining");
+var lettersGuessed= $("#letters-guessed");
+var answerSpace = $("#answer-space");
+
+var guessBank = ["grape", "corn", "pitch", "fast"];
 var randWord = "";
 var currentWord = "";
-var counterDisp= $("#wins-counter");
-var currentWordDisp= $("#current-word");
-var guessCountDisp= $("#guesses-remaining");
-var guessedDisp= $("#letters-guessed");
-var gameBegun = false;
+var lettersArray = [];
+var guessedArray = [];
+var guessesLeft = 9;
+var siegCount = 0;
+
+
+var gameOn = false;
 var generatorActive = true;
 var wordGenerated = false;
 
-// counterDisp.text("test");
-// currentWordDisp.text("test");
-// guessCountDisp.text("test");
-// guessedDisp.text("test");
+
+
+
+$("body").on("keypress", function setup(){
+    if(generatorActive === true){
+        randWord = guessBank[Math.floor(Math.random()*guessBank.length)];
+        currentWord = randWord;//sets randomly selected word to be value of empty 'currentWord' var. So if an inputed key is not "-1"
+                                //in a check fof currentWord.indexOf(key)...
+        lettersArray = randWord.split('');
+
+        
+        function generateLetterspace (){
+            for(var i=0; i<randWord.length; i++){
+                var letterSpace = $("<div>");
+                letterSpace.attr("class", "border-bottom border-dark ml-1 mr-1 float-left letterbox text-dark");
+                letterSpace.attr("id", i);
+                currentWordDisp.append(letterSpace);
+                guessedArray.push("!");
+                
+                guessesRemaining.text("10");
+            }
+            gameOn = true;
+        }
+        
+        generateLetterspace();
+        generatorActive = false;
+        
+        
+    }
+    
+
+});
 
 $("body").on("keydown", function(e){
 
+ 
+    if(gameOn === true){
     var keyCode = e.which;
     var key = "";
         if (keyCode === 65){
@@ -125,45 +163,46 @@ $("body").on("keydown", function(e){
             else{
                 console.log("choose a letter please.");
             }
-            if(gameBegun === true){
-            guessedDisp.append(key);
-            }
-            if(gameBegun === true){
-                if(currentWord.indexOf(key) !== -1){
-                    var correctLetter = currentWord.indexOf(key);
-                    var position =  "#" + correctLetter; 
-                    var changedLetter = $(position).attr("class", "border-bottom border-dark ml-1 mr-1 float-left letterbox text-dark");
-                    // console.log(key);
-                    console.log(changedLetter);
 
-                }else{
-                    alert("guess again");
-                }
-            
-             }
-            gameBegun = true;
-            if(gameBegun === true && generatorActive === true){
-                var randWord = guessBank[Math.floor(Math.random()*guessBank.length)];
-                currentWord = randWord;//sets randomly selected word to be value of empty 'currentWord' var. So if an inputed key is not "-1"
-                                        //in a check fof currentWord.indexOf(key)...
-                function generateLetterspace (){
-                    for(var i=0; i<randWord.length; i++){
-                        var letterSpace = $("<div>");
-                        // letterSpace.attr("position", i); --original method of identifying created divs
-                        letterSpace.attr("class", "border-bottom border-dark ml-1 mr-1 float-left letterbox text-light");
-                        letterSpace.attr("id", i);
-                        letterSpace.append(randWord[i]);
-                        // letterSpace.text(randWord[i]);
-                        currentWordDisp.append(letterSpace);
-                    }
-                }
-
-                generateLetterspace();
-                generatorActive = false;
+            if(gameOn === true){
+                console.log(randWord);
                 
-            }
-        }
+                    if(lettersArray.indexOf(key) !== -1){
+                    for (var j=0; j<lettersArray.length; j++){
+                        if(key === lettersArray[j]){
+                            var position = "#" + j;
+                            var changedLetter = $(position).text(key);
+                            guessedArray[j] = key;
+                            console.log(guessedArray);
+                            break;
+                        }
+                    }
+                  
+                }else{
+                    lettersGuessed.append(key);
+                }
+                guessesRemaining.text(guessesLeft);
+                guessesLeft--;
+
+            
+        } 
+    }
+    if(guessesLeft===-1){
+        gameOn = false;
+        answerSpace.text("You lose");
+        answerSpace.attr("class", "visible");
+    }
+    if(gameOn === true && guessedArray.indexOf("!") === -1){
+        answerSpace.text("That's right, the word is " + randWord + "!");
+        answerSpace.attr("class", "visible");
+        siegCount++;
+        winsCounter.text(siegCount);
+    }
+}
 );
 
 
-
+////need to have two arrays, one storing the answer as array to check letters against and that never changes, another
+///removes letters as they've been guessed.  For each letter, we need to look in the constant array to see where the first instance of the letter is. 
+///this needs to be related to the position id in the created divs, which will be the same as it's index position in the constant array.  We also need to remove
+///this found instance from the checker array, which will enclose the if statement with a -1 statement to ensure that the letter is still in teh....im stupid

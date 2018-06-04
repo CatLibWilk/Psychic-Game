@@ -23,7 +23,7 @@
                 <div class="container-fluid">
                         <div class="row text-center">
                                 <div class="col-md-8 mx-auto">
-                                    <h1>The Answer</h1>
+                                    <h1 id="answer-space" class="invisible">The Answer</h1>
                                 </div><!--answer col end-->
                         </div><!--answer row end-->
                     <div class="row">   
@@ -41,15 +41,15 @@
                                 <h4>Press any key to get started!</h4>
                                 <div id="wins-counter-space">
                                     <h5>Wins</h5>
-                                    <div id="wins-counter"></div>
+                                    <div id="wins-counter">0</div>
                                 </div>
                                 <div id ="current-word-space">
                                     <h5>Current word</h5>
                                     <div id="current-word" class="clearfix d-flex justify-content-center"></div>
                                 </div>
                                 <div id="guesses-remaining-space">
-                                    <h5>Number of Guesses Remaining</h5>
-                                    <div id="guesses-remaining"></div>
+                                    <h4>Number of Guesses Remaining</h4>
+                                    <h5 id="guesses-remaining"></h5>
                                 </div>
                                 <div id="letters-guessed-space">
                                     <h5>Letters already guessed</h5>

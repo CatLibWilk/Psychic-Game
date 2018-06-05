@@ -27,12 +27,11 @@
 
  #content-area{
       background-image: url('../images/background.jpg');
-      height: 1500px;
-      padding-top: 10%;
   }
 
   #main-game-area{
-      height: 750px;
+    margin-bottom: 25%;
+    background-image: url('../images/boxbg1.jpg');
   }
 
 

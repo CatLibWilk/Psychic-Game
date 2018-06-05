@@ -5,8 +5,10 @@ var currentWordDisp= $("#current-word");
 var guessesRemaining= $("#guesses-remaining");
 var lettersGuessed= $("#letters-guessed");
 var answerSpace = $("#answer-space");
+var resetBtn = $("#reset-btn");
+var gameImage = $("#game-image");
 
-var guessBank = ["seabreeze", "pallmall", "slims", "marlborough"];
+var guessBank = ["seabreeze", "spaniard", "worth", "marlborough", "gristle", "pancho", "squall"];
 var randWord = "";
 var currentWord = "";
 var lettersArray = [];
@@ -14,6 +16,8 @@ var guessedArray = [];
 var dblChecker = [];
 var guessesLeft = 14;
 var siegCount = 0;
+var success = new Audio("assets/images/princesuccess.wav");
+var fail = new Audio("assets/images/fail.wav");
 
 
 var gameOn = false;
@@ -21,7 +25,7 @@ var generatorActive = true;
 var wordGenerated = false;
 
 
-
+resetBtn.on("click", reset);
 
 $("body").on("keypress", function setup(){
     if(generatorActive === true){
@@ -40,7 +44,7 @@ $("body").on("keypress", function setup(){
                 currentWordDisp.append(letterSpace);
                 guessedArray.push("!");
                 
-                guessesRemaining.text("10");
+                guessesRemaining.text("15");
             }
             gameOn = true;
         }
@@ -197,15 +201,41 @@ $("body").on("keydown", function(e){
         gameOn = false;
         answerSpace.text("You lose");
         answerSpace.attr("class", "visible");
+        gameImage.attr("src", "assets/images/princefail.gif");
+        fail.play();
+        
+
     }
     if(gameOn === true && guessedArray.indexOf("!") === -1){
         answerSpace.text("That's right, the word is " + randWord + "!");
         answerSpace.attr("class", "visible");
         siegCount++;
         winsCounter.text(siegCount);
+        gameImage.attr("src", "assets/images/prince.gif");
+        success.play();
         gameOn = false;
     }
 }
 );
+
+function reset(){
+    lettersArray = [];
+    guessedArray = [];    
+    dblChecker = [];
+    guessesLeft = 14
+    gameOn = false;
+    currentWordDisp.empty();
+    generatorActive = true;
+    answerSpace.empty();
+    answerSpace.attr("class", "invisible");
+    answerSpace.text("The Answer");
+    guessesRemaining.empty();
+    lettersGuessed.empty();
+    gameImage.attr("src", "assets/images/wof.png");
+    success.pause();
+    success.currentTime = 0;
+    play.currentTime = 0;
+
+}
 
 });

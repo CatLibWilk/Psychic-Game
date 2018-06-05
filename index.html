@@ -22,23 +22,24 @@
             <section id="content-area">
                 <div class="container-fluid">
                         <div class="row text-center">
-                                <div class="col-md-8 mx-auto">
+                                <div class="col-md-8 mx-auto mt-2">
                                     <h1 id="answer-space" class="invisible">The Answer</h1>
                                 </div><!--answer col end-->
                         </div><!--answer row end-->
-                    <div class="row">   
-                        <div id="main-game-area" class="col-md-6 clearfix mx-auto bg-light">
-                            <div id="image-area" class="zone col-sm-6 float-left bg-light border-right p-3">
-                                    <div class="card" style="width: 18rem;">
-                                            <img class="card-img-top" src="assets/images/BNcoverfinal.jpg" alt="Card image cap">
-                                            <div class="card-body">
-                                              
+                    <div class="row mt-2">   
+                        <div id="main-game-area" class="col-md-6 clearfix rounded mx-auto">
+                            <div id="image-area" class="zone col-sm-6 float-left p-3">
+                                    <div class="card border-0" style="width: 18rem;">
+                                            <img id="game-image" class="card-img-top" src="assets/images/wof.png" alt="Wheel of Fortune image">
+                                            <div class="card-body bg-primary"> 
+                                                    <button id="reset-btn" class="col-sm-6 btn btn-primary">Reset</button>
                                             </div>
                                     </div>
                                 
                             </div><!-- -area end-->
-                            <div id="play-area" class="zone col-sm-6 float-left bg-light pt-3 pb-3 pl-2 pr-2">
-                                <h4>Press any key to get started!</h4>
+                            <div id="play-area" class="zone col-sm-6 float-left pt-3 pb-3 pl-2 pr-2">
+                                <h4 class="mb-4 text-success">Press any key to get started!</h4>
+                                <p class="mb-4 figure-caption">You have 15 tries to guess all the letters in the word below.  Repeated letters need to be guessed individually. No numbers or punctuation marks are used.</p>
                                 <div id="wins-counter-space">
                                     <h5>Wins</h5>
                                     <div id="wins-counter">0</div>
@@ -57,6 +58,7 @@
                                 </div>
 
                             </div><!-- -area end-->
+                            
                         </div><!--main-game-area end-->
                     </div><!--row end-->
                 </div><!--container-fluid end-->

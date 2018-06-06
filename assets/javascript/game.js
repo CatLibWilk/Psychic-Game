@@ -21,6 +21,7 @@ var fail = new Audio("assets/images/fail.wav");
 
 
 var gameOn = false;
+var GameWon = false;
 var generatorActive = true;
 var wordGenerated = false;
 
@@ -197,15 +198,7 @@ $("body").on("keydown", function(e){
             
         } 
     }
-    if(guessesLeft===-1){
-        gameOn = false;
-        answerSpace.text("You lose");
-        answerSpace.attr("class", "visible");
-        gameImage.attr("src", "assets/images/princefail.gif");
-        fail.play();
-        
 
-    }
     if(gameOn === true && guessedArray.indexOf("!") === -1){
         answerSpace.text("That's right, the word is " + randWord + "!");
         answerSpace.attr("class", "visible");
@@ -214,6 +207,14 @@ $("body").on("keydown", function(e){
         gameImage.attr("src", "assets/images/prince.gif");
         success.play();
         gameOn = false;
+        gameWon = true;
+    }
+    if(guessesLeft===-1 && gameWon===false){
+        gameOn = false;
+        answerSpace.text("You lose");
+        answerSpace.attr("class", "visible");
+        gameImage.attr("src", "assets/images/princefail.gif");
+        fail.play();
     }
 }
 );
@@ -224,6 +225,7 @@ function reset(){
     dblChecker = [];
     guessesLeft = 14
     gameOn = false;
+    gameWon = false;
     currentWordDisp.empty();
     generatorActive = true;
     answerSpace.empty();

@@ -1,0 +1,52 @@
+* {
+    box-sizing: border-box;
+    text-align: center;
+    /* background-color: coral; */
+  }
+  
+  .clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+    overflow: auto;
+  }
+
+  /* #image-area{
+      
+        background-color: goldenrod;
+  }
+  #play-area{
+      
+        background-color: goldenrod;
+  } */
+
+  #logo{
+      height: 100%;
+      width: 100%;
+  }
+
+ #content-area{
+      background-image: url('../images/background.jpg');
+  }
+
+  #main-game-area{
+    margin-bottom: 25%;
+    background-image: url('../images/boxbg1.jpg');
+  }
+
+
+  header{
+      border-bottom-style: solid;
+      border-width: 5px;
+      border-color: gold;
+  }
+
+  .zone{
+      height: 100%;
+  }
+
+  .letterbox{
+    height: 25px;
+    width: 25px;
+    margin-bottom: 20px;
+  }

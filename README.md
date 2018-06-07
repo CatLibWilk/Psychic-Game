@@ -1,2 +1,2 @@
-# Psychic-Game
+# Word-Guess
 Repo for Homework 3

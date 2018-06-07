@@ -1,12 +1,24 @@
-$(function(){
-
-var winsCounter= $("#wins-counter");
-var currentWordDisp= $("#current-word");
-var guessesRemaining= $("#guesses-remaining");
-var lettersGuessed= $("#letters-guessed");
-var answerSpace = $("#answer-space");
-var resetBtn = $("#reset-btn");
-var gameImage = $("#game-image");
+// var winsCounter= $("#wins-counter");
+var winsCounter = document.getElementById("wins-counter");
+// console.log(winsCounter);
+// var currentWordDisp= $("#current-word");
+var currentWordDisp = document.getElementById("current-word");
+// console.log(currentWordDisp);
+// var guessesRemaining= $("#guesses-remaining");
+var guessesRemaining = document.getElementById("guesses-remaining");
+// console.log(guessesRemaining);
+// var lettersGuessed= $("#letters-guessed");
+var lettersGuessed = document.getElementById("letters-guessed");
+// console.log(lettersGuessed);
+// var answerSpace = $("#answer-space");
+var answerSpace = document.getElementById("answer-space");
+// console.log(answerSpace);
+// var resetBtn = $("#reset-btn");
+var resetBtn = document.getElementById("reset-btn");
+// console.log(resetBtn);
+// var gameImage = $("#game-image");
+var gameImage = document.getElementById("game-image");
+// console.log(gameImage);
 
 var guessBank = ["seabreeze", "spaniard", "worth", "marlborough", "gristle", "pancho", "squall"];
 var randWord = "";
@@ -14,21 +26,22 @@ var currentWord = "";
 var lettersArray = [];
 var guessedArray = [];
 var dblChecker = [];
-var guessesLeft = 14;
+var guessesLeft = 15;
 var siegCount = 0;
 var success = new Audio("assets/images/princesuccess.wav");
 var fail = new Audio("assets/images/fail.wav");
 
 
 var gameOn = false;
-var GameWon = false;
+var gameWon = false;
 var generatorActive = true;
 var wordGenerated = false;
 
 
-resetBtn.on("click", reset);
+resetBtn.addEventListener("click", reset);
 
-$("body").on("keypress", function setup(){
+document.addEventListener("keypress", function setup(){
+
     if(generatorActive === true){
         randWord = guessBank[Math.floor(Math.random()*guessBank.length)];
         currentWord = randWord;//sets randomly selected word to be value of empty 'currentWord' var. So if an inputed key is not "-1"
@@ -39,13 +52,13 @@ $("body").on("keypress", function setup(){
         
         function generateLetterspace (){
             for(var i=0; i<randWord.length; i++){
-                var letterSpace = $("<div>");
-                letterSpace.attr("class", "border-bottom border-dark ml-1 mr-1 float-left letterbox text-dark");
-                letterSpace.attr("id", i);
+                var letterSpace = document.createElement("div")
+                letterSpace.setAttribute("class", "border-bottom border-dark ml-1 mr-1 float-left letterbox text-dark");
+                letterSpace.setAttribute("id", i);
                 currentWordDisp.append(letterSpace);
                 guessedArray.push("!");
                 
-                guessesRemaining.text("15");
+                guessesRemaining.innerHTML = "15";
             }
             gameOn = true;
         }
@@ -59,7 +72,7 @@ $("body").on("keypress", function setup(){
 
 });
 
-$("body").on("keydown", function(e){
+document.addEventListener("keydown", function(e){
 
  
     if(gameOn === true){
@@ -179,42 +192,47 @@ $("body").on("keydown", function(e){
                     if(lettersArray.indexOf(key) !== -1){
                     for (var j=0; j<lettersArray.length; j++){
                         if(key === dblChecker[j]){
-                            var position = "#" + j;
-                            var changedLetter = $(position).text(key);
+                            var changedLetter = document.getElementById(j).innerHTML = key;
                             guessedArray[j] = key;
                             // console.log(guessedArray);---used for debugging, delete before final push
                             dblChecker[j]="@";
                             // console.log(dblChecker);---used for debugging, delete before final push
+
                             break;
                         }
-                    }
+                    }      
+                        
+                    
                   
                 }else{
                     lettersGuessed.append(key);
                 }
-                guessesRemaining.text(guessesLeft);
-                guessesLeft--;
-
+                guessesRemaining.innerHTML = guessesLeft;
+                console.log(guessesLeft);
+               guessesLeft --;
             
         } 
     }
-
+    
     if(gameOn === true && guessedArray.indexOf("!") === -1){
-        answerSpace.text("That's right, the word is " + randWord + "!");
-        answerSpace.attr("class", "visible");
+        answerSpace.innerHTML = "That's right, the word is " + randWord + "!";
+        answerSpace.setAttribute("class", "visible text-danger");
         siegCount++;
-        winsCounter.text(siegCount);
-        gameImage.attr("src", "assets/images/prince.gif");
+        winsCounter.innerHTML = siegCount;
+        gameImage.setAttribute("src", "assets/images/prince.gif");
         success.play();
         gameOn = false;
         gameWon = true;
     }
+
     if(guessesLeft===-1 && gameWon===false){
         gameOn = false;
-        answerSpace.text("You lose");
-        answerSpace.attr("class", "visible");
-        gameImage.attr("src", "assets/images/princefail.gif");
+        answerSpace.innerHTML = "You lose";
+        answerSpace.setAttribute("class", "visible text-danger");
+        gameImage.setAttribute("src", "assets/images/princefail.gif");
         fail.play();
+        
+
     }
 }
 );
@@ -223,21 +241,19 @@ function reset(){
     lettersArray = [];
     guessedArray = [];    
     dblChecker = [];
-    guessesLeft = 14
+    guessesLeft = 15;
     gameOn = false;
     gameWon = false;
-    currentWordDisp.empty();
+    currentWordDisp.innerHTML = "";
     generatorActive = true;
-    answerSpace.empty();
-    answerSpace.attr("class", "invisible");
-    answerSpace.text("The Answer");
-    guessesRemaining.empty();
-    lettersGuessed.empty();
-    gameImage.attr("src", "assets/images/wof.png");
+    answerSpace.innerHTML = "";
+    answerSpace.setAttribute("class", "invisible");
+    answerSpace.innerHTML = "The Answer";
+    guessesRemaining.innerHTML = "";
+    lettersGuessed.innerHTML = "";
+    gameImage.setAttribute("src", "assets/images/wof.png");
     success.pause();
     success.currentTime = 0;
-    play.currentTime = 0;
+
 
 }
-
-});

@@ -1,24 +1,12 @@
-// var winsCounter= $("#wins-counter");
+
 var winsCounter = document.getElementById("wins-counter");
-// console.log(winsCounter);
-// var currentWordDisp= $("#current-word");
+var lossesCounter = document.getElementById("losses-counter");
 var currentWordDisp = document.getElementById("current-word");
-// console.log(currentWordDisp);
-// var guessesRemaining= $("#guesses-remaining");
 var guessesRemaining = document.getElementById("guesses-remaining");
-// console.log(guessesRemaining);
-// var lettersGuessed= $("#letters-guessed");
 var lettersGuessed = document.getElementById("letters-guessed");
-// console.log(lettersGuessed);
-// var answerSpace = $("#answer-space");
 var answerSpace = document.getElementById("answer-space");
-// console.log(answerSpace);
-// var resetBtn = $("#reset-btn");
 var resetBtn = document.getElementById("reset-btn");
-// console.log(resetBtn);
-// var gameImage = $("#game-image");
 var gameImage = document.getElementById("game-image");
-// console.log(gameImage);
 
 var guessBank = ["seabreeze", "spaniard", "worth", "marlborough", "gristle", "pancho", "squall"];
 var randWord = "";
@@ -26,8 +14,9 @@ var currentWord = "";
 var lettersArray = [];
 var guessedArray = [];
 var dblChecker = [];
-var guessesLeft = 15;
+var guessesLeft = 14;
 var siegCount = 0;
+var verlorCount = 0;
 var success = new Audio("assets/images/princesuccess.wav");
 var fail = new Audio("assets/images/fail.wav");
 
@@ -40,7 +29,9 @@ var wordGenerated = false;
 
 resetBtn.addEventListener("click", reset);
 
-document.addEventListener("keypress", function setup(){
+document.addEventListener("keypress", setup);
+
+function setup(){
 
     if(generatorActive === true){
         randWord = guessBank[Math.floor(Math.random()*guessBank.length)];
@@ -70,7 +61,7 @@ document.addEventListener("keypress", function setup(){
     }
     
 
-});
+};
 
 document.addEventListener("keydown", function(e){
 
@@ -187,16 +178,13 @@ document.addEventListener("keydown", function(e){
             }
 
             if(gameOn === true){
-                // console.log(randWord);---used for debugging, delete before final push
                 
                     if(lettersArray.indexOf(key) !== -1){
                     for (var j=0; j<lettersArray.length; j++){
                         if(key === dblChecker[j]){
                             var changedLetter = document.getElementById(j).innerHTML = key;
                             guessedArray[j] = key;
-                            // console.log(guessedArray);---used for debugging, delete before final push
                             dblChecker[j]="@";
-                            // console.log(dblChecker);---used for debugging, delete before final push
 
                             break;
                         }
@@ -205,10 +193,9 @@ document.addEventListener("keydown", function(e){
                     
                   
                 }else{
-                    lettersGuessed.append(key);
+                    lettersGuessed.append(key.toUpperCase()+" ");
                 }
                 guessesRemaining.innerHTML = guessesLeft;
-                console.log(guessesLeft);
                guessesLeft --;
             
         } 
@@ -223,14 +210,18 @@ document.addEventListener("keydown", function(e){
         success.play();
         gameOn = false;
         gameWon = true;
+        setTimeout(reset, 12 * 1000);
     }
 
-    if(guessesLeft===-1 && gameWon===false){
+    if(gameOn === true && guessesLeft===-1 && gameWon===false){
         gameOn = false;
         answerSpace.innerHTML = "You lose";
         answerSpace.setAttribute("class", "visible text-danger");
         gameImage.setAttribute("src", "assets/images/princefail.gif");
+        verlorCount++;
+        lossesCounter.innerHTML = verlorCount;
         fail.play();
+        setTimeout(reset, 3000);
         
 
     }
@@ -241,7 +232,7 @@ function reset(){
     lettersArray = [];
     guessedArray = [];    
     dblChecker = [];
-    guessesLeft = 15;
+    guessesLeft = 14;
     gameOn = false;
     gameWon = false;
     currentWordDisp.innerHTML = "";
@@ -254,6 +245,7 @@ function reset(){
     gameImage.setAttribute("src", "assets/images/wof.png");
     success.pause();
     success.currentTime = 0;
+    setup();
 
 
 }
